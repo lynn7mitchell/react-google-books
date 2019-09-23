@@ -30,8 +30,24 @@ export class BookSearch extends Component {
     
   };
 
+
+  handleSave = book => {
+    console.log("book");
+
+
+    const newBook = {
+      title: book.volumeInfo.title,
+      authors: book.volumeInfo.authors[0],
+      image: book.volumeInfo.imageLinks.thumbnail,
+      link: book.volumeInfo.infoLink
+      // description: book.
+    };
+    API.saveBook(newBook)
+  };
+
   render() {
     return (
+        
       <div className="container">
         <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
@@ -57,9 +73,20 @@ export class BookSearch extends Component {
             </div>
           </div>
         </form>
+
+
+
+
+         {this.state.books.map(book => (
+        <div>
+            <h6>{book.volumeInfo.title}</h6>
+            <button onClick={()=>this.handleSave(book)} className="btn btn-primary">Save</button>
+        </div>
+        ))} 
       </div>
+    
     );
-  }
+}
 }
 
 export default BookSearch;
