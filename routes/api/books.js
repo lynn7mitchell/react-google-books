@@ -9,14 +9,12 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/api/savedBooks", (req, res) => {
-    db.Note.find({})
-      .then(function(dbBooks) {
-        res.json(dbBooks);
-      })
-      .catch(function(err) {
-        res.json(err);
-      });
+  app.get("/api/books/:id", (req, res) => {
+    id = req.params.id
+    console.log(id)
+    axios.get('https://www.googleapis.com/books/v1/volumes?q=' + id)
+    .then(response=>res.json(response.data.items))
+    .catch(err => console.log(err))
   });
 
   app.post("/api/books", (req, res)=>{
