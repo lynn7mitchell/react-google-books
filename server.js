@@ -29,11 +29,11 @@ app.use(express.static("public"));
 
 // Connect to the Mongo DB
 mongoose
-.connect("mongodb://heroku_wgm3zdxc:j7fhgljrj8e6hvkec30vlv99v8@ds051595.mlab.com:51595/heroku_wgm3zdxc", { useNewUrlParser: true });
+.connect("mongodb://heroku_0ctghlfn:eh8nm08nffpjn7slraem63qnps@ds159493.mlab.com:59493/heroku_0ctghlfn", { useNewUrlParser: true });
 
 
 //Routes
-require("./routes/api/notes")(app)
+require("./routes/api/books")(app)
 
 if (process.env.NODE_ENV === 'production') {
   // set static folder
