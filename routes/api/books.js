@@ -17,6 +17,14 @@ module.exports = function(app) {
     .catch(err => console.log(err))
   });
 
+  app.get("/api/books", (req, res)=>{
+    console.log("LKSDJFKLDSJFLKSDFJ")
+    db.Book.find({})
+    .then( dbModel => res.status(200).json(dbModel))
+    .catch(err => {
+      throw err
+  })})
+
   app.post("/api/books", (req, res)=>{
     const book ={
         title: req.body.title,
@@ -36,4 +44,18 @@ module.exports = function(app) {
 
     
 })
+
+
+app.delete("/api/books/:id", (req, res) => {
+  id = req.params.id
+  db.Book.findOneAndDelete({ title: req.params.id })
+  .then(() => {
+    res.json({
+      success: true
+    });
+  })
+  .catch(err => {
+    throw err;
+  });
+});
 };

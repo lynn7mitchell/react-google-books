@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import API from './utils/API'
+import { BrowserRouter as Router, Route, Link} from "react-router-dom"
 import BookSearch from './components/BookSearch';
+import SavedBooks from './components/SavedBooks';
 export class App extends Component {
 
   state={
@@ -13,7 +14,10 @@ export class App extends Component {
     return (
       <div>
         <h1>Books</h1>
-        <BookSearch/>
+        <Router>
+          <Route exact path="/search" component={BookSearch}/>
+          <Route exact path="/saved" component={SavedBooks}/>
+        </Router>
       </div>
     )
   }

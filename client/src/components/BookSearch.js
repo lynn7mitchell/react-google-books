@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import API from "../utils/API";
+import Result from "./Result";
+
 
 export class BookSearch extends Component {
   state = {
@@ -7,6 +9,8 @@ export class BookSearch extends Component {
     books: []
   };
 
+  
+  
   handleChange = e => {
     console.log(e.target.value);
     const name = e.target.name;
@@ -18,22 +22,16 @@ export class BookSearch extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    const id = this.state.bookSearch
+    const id = this.state.bookSearch;
 
     API.getBook(id)
-      .then(res => (this.setState({ books: res.data, loading: false })))
-      .then(
-          console.log(this.state.books)
-      )
+      .then(res => this.setState({ books: res.data, loading: false }))
+      .then(console.log(this.state.books))
       .catch(err => console.log(err.data));
-
-    
   };
 
-
   handleSave = book => {
-    console.log("book");
-
+    console.log(book);
 
     const newBook = {
       title: book.volumeInfo.title,
@@ -42,12 +40,16 @@ export class BookSearch extends Component {
       link: book.volumeInfo.infoLink
       // description: book.
     };
-    API.saveBook(newBook)
+    API.saveBook(newBook);
   };
 
   render() {
+
+    const card={
+      width: "20vw"
+    }
+  
     return (
-        
       <div className="container">
         <form className="col s12" onSubmit={this.handleSubmit}>
           <div className="row">
@@ -74,19 +76,10 @@ export class BookSearch extends Component {
           </div>
         </form>
 
-
-
-
-         {this.state.books.map(book => (
-        <div>
-            <h6>{book.volumeInfo.title}</h6>
-            <button onClick={()=>this.handleSave(book)} className="btn btn-primary">Save</button>
-        </div>
-        ))} 
+        <Result handleSave={this.handleSave} books={this.state.books}/>
       </div>
-    
     );
-}
+  }
 }
 
 export default BookSearch;
